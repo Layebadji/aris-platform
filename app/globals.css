@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-gold: #D4AF37;
+    --primary-gold-dark: #C5A028;
+    --midnight-blue: 210 50% 12%;
+    --brushed-gold: 43 59% 52%;
+    --background: 210 50% 12%;
+    --foreground: 0 0% 98%;
+    --card: 210 45% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 210 45% 15%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 43 59% 52%;
+    --primary-foreground: 210 50% 12%;
+    --secondary: 210 40% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 210 30% 25%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 43 59% 52%;
+    --accent-foreground: 210 50% 12%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 210 30% 25%;
+    --input: 210 30% 25%;
+    --ring: 43 59% 52%;
+    --chart-1: 43 59% 52%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "liga" 1, "calt" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
+  }
+}
+
+@layer utilities {
+  .serif-elegant {
+    font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Curseurs de saisie — style premium ARIS */
+.aris-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+}
+.aris-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary-gold);
+  cursor: pointer;
+  border: 3px solid #0A192F;
+  box-shadow: 0 0 0 1.5px var(--primary-gold);
+  transition: transform 0.1s ease;
+}
+.aris-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+.aris-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary-gold);
+  cursor: pointer;
+  border: 3px solid #0A192F;
+  box-shadow: 0 0 0 1.5px var(--primary-gold);
+}
+
+/* Neutralisation du badge Bolt.new (overlay injecté au runtime) */
+a[href*="bolt.new"],
+div[class*="bolt"],
+div[id*="bolt"],
+[data-bolt],
+iframe[src*="bolt.new"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
