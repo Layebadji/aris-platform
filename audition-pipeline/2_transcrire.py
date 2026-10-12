@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Transcrit les morceaux audio d'un dossier avec Groq (whisper-large-v3).
 
-Usage: GROQ_API_KEY=... python3 2_transcrire.py impots
+Usage: GROQ_API_KEY=... python3 2_transcrire.py impots [--vocab vocab_dgid.txt]
 Produit <dossier>/transcript.json ([{"t": secondes, "text": ...}]) et transcript.txt.
 Reprise possible : chaque morceau déjà transcrit (part_XXX.json) est réutilisé.
 """
+import argparse
 import json
 import subprocess
 import sys
@@ -14,7 +15,7 @@ from pathlib import Path
 from groq import Groq, RateLimitError
 
 MODEL = "whisper-large-v3"
-VOCAB = (Path(__file__).parent / "vocab.txt").read_text(encoding="utf-8").strip()
+VOCAB = ""
 
 
 def duree(path: Path) -> float:
@@ -89,6 +90,10 @@ def main(dossier: str) -> None:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        sys.exit("usage: python3 2_transcrire.py <dossier>")
-    main(sys.argv[1])
+    ap = argparse.ArgumentParser()
+    ap.add_argument("dossier")
+    ap.add_argument("--vocab", default=str(Path(__file__).parent / "vocab.txt"),
+                    help="fichier de vocabulaire (noms propres, sigles) passé à Whisper")
+    a = ap.parse_args()
+    VOCAB = Path(a.vocab).read_text(encoding="utf-8").strip()
+    main(a.dossier)
